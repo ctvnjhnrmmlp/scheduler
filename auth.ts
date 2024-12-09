@@ -1,5 +1,7 @@
 import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
+import { ZodError } from 'zod';
+import { signInSchema } from './libraries/zod';
 import { findUserByEmail } from './services/scheduler/user';
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
@@ -9,21 +11,24 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 	providers: [
 		Credentials({
 			credentials: {
-				email: {
-					label: 'email',
-					type: 'string',
-				},
-				password: {
-					label: 'password',
-					type: 'string',
-				},
+				email: {},
+				password: {},
 			},
 			authorize: async (credentials) => {
-				let user = null;
+				try {
+					const { email } = await signInSchema.parseAsync(credentials);
+					const user = await findUserByEmail(email);
 
-				user = await findUserByEmail(credentials.email.label);
+					if (!user) {
+						throw new Error();
+					}
 
-				return user;
+					return user;
+				} catch (error) {
+					if (error instanceof ZodError) {
+						return null;
+					}
+				}
 			},
 		}),
 	],
