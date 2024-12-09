@@ -29,7 +29,7 @@ export default function Page() {
 		},
 	});
 
-	function onSubmit(values: z.infer<typeof signInSchema>) {
+	async function onSubmit(values: z.infer<typeof signInSchema>) {
 		signIn('credentials', values);
 	}
 

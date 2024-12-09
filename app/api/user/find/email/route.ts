@@ -9,6 +9,8 @@ const log = Logger.child({
 
 export async function POST(req: NextApiRequest) {
 	try {
+		console.log(req.body);
+
 		if (!req.body || !req.body.email) {
 			return new Response(RESPONSE_MESSAGES.BAD_REQUEST, {
 				status: RESPONSE_CODES.BAD_REQUEST,

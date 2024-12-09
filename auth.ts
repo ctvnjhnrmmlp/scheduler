@@ -16,14 +16,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 			},
 			authorize: async (credentials) => {
 				try {
-					const { email } = await signInSchema.parseAsync(credentials);
-					const user = await findUserByEmail(email);
+					console.log(credentials);
+					// const { email } = await signInSchema.parseAsync(credentials);
+					// const user = await findUserByEmail(email);
 
-					if (!user) {
-						throw new Error();
-					}
+					// if (!user) {
+					// 	throw new Error();
+					// }
 
-					return user;
+					// return user;
 				} catch (error) {
 					if (error instanceof ZodError) {
 						return null;

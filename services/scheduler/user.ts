@@ -18,6 +18,8 @@ export const findUserByEmail = async (email: string): Promise<User | null> => {
 			},
 		});
 
+		console.log(response);
+
 		if (response.ok) {
 			const data = await response.json();
 			return data;
