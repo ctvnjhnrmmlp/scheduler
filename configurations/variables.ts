@@ -1,5 +1,5 @@
 const VARIABLES = {
-	canonical: '',
+	canonical: 'https://ctvnjhnrmmlp.vercel.app',
 	name: '',
 	nameConfig: '',
 	developers: '',

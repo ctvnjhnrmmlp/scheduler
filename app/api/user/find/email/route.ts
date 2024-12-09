@@ -15,6 +15,8 @@ export async function POST(req: NextApiRequest) {
 			});
 		}
 
+		log.debug(req.body.email);
+
 		const user = await Prisma.user.findUnique({
 			where: {
 				email: req.body.email,
